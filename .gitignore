@@ -348,3 +348,7 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# User defined ignores
+# Prevent gateway and private password from being checked in
+samples/ReadOutdoorTemperature/Properties/launchSettings.json
