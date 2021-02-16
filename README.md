@@ -1,6 +1,7 @@
 # Buderus KM200 Reader
 
 ![Build + Test](https://github.com/PeterPuff/buderus-km200-reader/workflows/Build%20+%20Test/badge.svg)
+[![codecov](https://codecov.io/gh/PeterPuff/buderus-km200-reader/branch/master/graph/badge.svg?token=IE5H4BOX7Q)](https://codecov.io/gh/PeterPuff/buderus-km200-reader)
 
 ## Description
 
