@@ -1,5 +1,7 @@
 # Buderus KM200 Reader
 
+![Build + Test](https://github.com/PeterPuff/buderus-km200-reader/workflows/Build%20+%20Test/badge.svg)
+
 ## Description
 
 Buderus KM200 Reader provides functionality to read datapoint data from Buderus KM200 communication module.
