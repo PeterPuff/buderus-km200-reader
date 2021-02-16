@@ -5,11 +5,15 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1A864A2B-4292-4F07-AD00-45F4C606BDD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeterPuff.BuderusKm200Reader", "src\PeterPuff.BuderusKm200Reader\PeterPuff.BuderusKm200Reader.csproj", "{16BDCD4D-23B2-42FB-A888-18E8D48DA22E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeterPuff.BuderusKm200Reader", "src\PeterPuff.BuderusKm200Reader\PeterPuff.BuderusKm200Reader.csproj", "{16BDCD4D-23B2-42FB-A888-18E8D48DA22E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{D5C6FED5-0184-488D-B2A8-C4E8F2F250D8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReadOutdoorTemperature", "samples\ReadOutdoorTemperature\ReadOutdoorTemperature.csproj", "{0293283C-545B-4850-A752-9E47D268F867}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4F1EC7EF-08C5-429A-940D-DBB9361464F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeterPuff.BuderusKm200Reader.Tests", "tests\PeterPuff.BuderusKm200Reader.Tests\PeterPuff.BuderusKm200Reader.Tests.csproj", "{04B872AA-73AD-4E81-9DB7-658434BBE01D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,10 @@ Global
 		{0293283C-545B-4850-A752-9E47D268F867}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0293283C-545B-4850-A752-9E47D268F867}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0293283C-545B-4850-A752-9E47D268F867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04B872AA-73AD-4E81-9DB7-658434BBE01D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04B872AA-73AD-4E81-9DB7-658434BBE01D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04B872AA-73AD-4E81-9DB7-658434BBE01D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04B872AA-73AD-4E81-9DB7-658434BBE01D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{16BDCD4D-23B2-42FB-A888-18E8D48DA22E} = {1A864A2B-4292-4F07-AD00-45F4C606BDD8}
 		{0293283C-545B-4850-A752-9E47D268F867} = {D5C6FED5-0184-488D-B2A8-C4E8F2F250D8}
+		{04B872AA-73AD-4E81-9DB7-658434BBE01D} = {4F1EC7EF-08C5-429A-940D-DBB9361464F7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19A3344F-80B1-4E6F-9CCB-C8A418A815B1}
