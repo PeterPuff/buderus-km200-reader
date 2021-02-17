@@ -25,7 +25,7 @@ jobs:
 
   deploy-prerelease-package:
     needs: build-and-test
-    if: github.ref == 'refs/heads/store-ci-artifacts' # change to master
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps: 
     - uses: actions/checkout@v2
