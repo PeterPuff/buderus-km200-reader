@@ -1,12 +1,10 @@
 name: Build + Test
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build-and-test:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
@@ -24,3 +22,28 @@ jobs:
       with:
         fail_ci_if_error: true
         directory: ./artifacts/testresults
+
+  deploy-prerelease-package:
+    needs: build-and-test
+    if: github.ref == 'refs/heads/store-ci-artifacts' # change to master
+    runs-on: ubuntu-latest
+    steps: 
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Get commit count
+      id: get_commit_count
+      uses: lucasfe/version_code_generator@v1.0.0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+        source-url: https://nuget.pkg.github.com/PeterPuff/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    - uses: FranzDiebold/github-env-vars-action@v2
+    - name: Create prerelease package(s)
+      run: dotnet pack --configuration Release --output artifacts/packages --version-suffix pre-${{ steps.get_commit_count.outputs.code }}-$CI_SHA_SHORT -p:CreatePrerelease=1
+    - name: Deploy packages to GPR
+      run: dotnet nuget push artifacts/packages/*.nupkg
+    
