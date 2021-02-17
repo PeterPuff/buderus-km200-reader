@@ -6,6 +6,10 @@
         <VersionPrefix Condition="$(VersionWithSuffix) == ''">0.1.0</VersionPrefix>
         <VersionPrefix Condition="$(VersionWithSuffix.Contains('-')) == true">$(VersionWithSuffix.Substring(0, $(VersionWithSuffix.IndexOf('-'))))</VersionPrefix>
         <VersionPrefix Condition="$(VersionWithSuffix.Contains('-')) == false">$(VersionWithSuffix)</VersionPrefix>
+        <!-- Increase Build if its a prerelease -->
+        <VersionBuild Condition="$(CreatePrerelease) != ''">$([System.Version]::Parse('$(VersionPrefix)').Build)</VersionBuild>
+        <VersionBuild Condition="$(CreatePrerelease) != ''">$([MSBuild]::Add($(VersionBuild), 1))</VersionBuild>
+        <VersionPrefix Condition="$(CreatePrerelease) != ''">$([System.Version]::Parse('$(VersionPrefix)').ToString(2)).$(VersionBuild)</VersionPrefix>
         <!-- Use suffix if specified-->
         <VersionSuffix></VersionSuffix>
         <VersionSuffix Condition="$(VersionWithSuffix.Contains('-')) == true">$(VersionWithSuffix.Substring($(VersionWithSuffix.IndexOf('-'))))</VersionSuffix>
