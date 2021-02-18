@@ -74,5 +74,31 @@ public class BuderusKm200ReaderTests
                 .WithMessage("*invalid*private*password*")
                 .And.ParamName.Should().Be("privatePassword");
         }
+
+        [Fact]
+        public void StoresHostInProperty()
+        {
+            string host = nameof(host);
+            int port = IPEndPoint.MinPort;
+            string gatewayPassword = nameof(gatewayPassword);
+            string privatePassword = nameof(privatePassword);
+
+            var reader = new BuderusKm200Reader(host, port, gatewayPassword, privatePassword);
+
+            reader.Host.Should().Be(host);
+        }
+
+        [Fact]
+        public void StoresPortInProperty()
+        {
+            string host = nameof(host);
+            int port = IPEndPoint.MinPort;
+            string gatewayPassword = nameof(gatewayPassword);
+            string privatePassword = nameof(privatePassword);
+
+            var reader = new BuderusKm200Reader(host, port, gatewayPassword, privatePassword);
+
+            reader.Port.Should().Be(port);
+        }
     }
 }
