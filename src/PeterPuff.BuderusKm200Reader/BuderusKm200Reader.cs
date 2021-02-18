@@ -117,7 +117,7 @@ namespace PeterPuff.BuderusKm200Reader
         {
             var uri = $"http://{Host}:{Port}{datapoint}";
 
-            var req = WebRequest.CreateHttp(uri);
+            var req = (HttpWebRequest)WebRequest.Create(uri);
             req.UserAgent = WebRequestUserAgent;
 
             string responseText;
