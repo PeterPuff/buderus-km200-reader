@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeterPuff.BuderusKm200Reade
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{D5C6FED5-0184-488D-B2A8-C4E8F2F250D8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReadOutdoorTemperature", "samples\ReadOutdoorTemperature\ReadOutdoorTemperature.csproj", "{0293283C-545B-4850-A752-9E47D268F867}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReadDatapoints", "samples\ReadDatapoints\ReadDatapoints.csproj", "{0293283C-545B-4850-A752-9E47D268F867}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4F1EC7EF-08C5-429A-940D-DBB9361464F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeterPuff.BuderusKm200Reader.Tests", "tests\PeterPuff.BuderusKm200Reader.Tests\PeterPuff.BuderusKm200Reader.Tests.csproj", "{04B872AA-73AD-4E81-9DB7-658434BBE01D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeterPuff.BuderusKm200Reader.Tests", "tests\PeterPuff.BuderusKm200Reader.Tests\PeterPuff.BuderusKm200Reader.Tests.csproj", "{04B872AA-73AD-4E81-9DB7-658434BBE01D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
