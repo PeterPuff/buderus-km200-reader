@@ -142,6 +142,13 @@ namespace PeterPuff.BuderusKm200Reader
             return GetValueFromJson<float>(jObject);
         }
 
+        public string ReadDatapointValueAsString(string datapoint)
+        {
+            JObject jObject = ReadDatapointDataAsJson(datapoint);
+            ValidateJsonType(jObject, "stringValue");
+            return GetValueFromJson<string>(jObject);
+        }
+
         private static void ValidateJsonType(JObject jObject, string expectedType)
         {
             string type = GetTypeFromJson(jObject);

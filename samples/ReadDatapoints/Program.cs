@@ -3,9 +3,9 @@ using System;
 
 namespace ReadOutdoorTemperature
 {
-    class Program
+    internal sealed class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             if (args.Length != 4)
             {
@@ -20,14 +20,22 @@ namespace ReadOutdoorTemperature
             var reader = new BuderusKm200Reader(host, port, gatewayPassword, privatePassword);
 
             var datapointOutdoorTemperature = "/system/sensors/temperatures/outdoor_t1";
+            var datapointSystemHealth = "/system/healthStatus";
+
+            ReadAndShow(reader.ReadDatapointValueAsFloat, datapointOutdoorTemperature);
+            ReadAndShow(reader.ReadDatapointValueAsString, datapointSystemHealth);
+        }
+
+        private static void ReadAndShow<T>(Func<string, T> readMethod, string datapoint)
+        {
             try
             {
-                var outdoorTemperatureValue = reader.ReadDatapointValueAsFloat(datapointOutdoorTemperature);
-                Console.WriteLine($"Outdoor temperature 'outdoor_t1': {outdoorTemperatureValue}");
+                var value = readMethod(datapoint);
+                Console.WriteLine($"Value of '{datapoint}': {value}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occured while reading datapoint value of '{datapointOutdoorTemperature}': {ex}");
+                Console.WriteLine($"An error occured while reading datapoint value of '{datapoint}': {ex}");
             }
         }
     }

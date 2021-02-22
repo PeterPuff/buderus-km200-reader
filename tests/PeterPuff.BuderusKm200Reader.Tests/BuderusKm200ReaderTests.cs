@@ -184,7 +184,7 @@ public class BuderusKm200ReaderTests
         [Fact]
         public void ReturnsCorrectResult()
         {
-            // original dataoint id for this response: /system/sensors/temperatures/outdoor_t1
+            // original datapoint id for this response: /system/sensors/temperatures/outdoor_t1
             // We have to use an unique datapoint per test to enable concurrent test runs of different tests.
             var dataPointToRead = $"/{nameof(ReadDatapointData)}/{nameof(ReturnsCorrectResult)}";
             var expectedUserAgent = "TeleHeater/2.2.3";
@@ -205,7 +205,9 @@ public class BuderusKm200ReaderTests
         [Fact]
         public void ReturnsCorrectResult()
         {
-            // Original dataoint id for this response: /system/sensors/temperatures/outdoor_t1
+            // The decrypted response of the below written encrypted response is:
+            // "{\"id\":\"/system/sensors/temperatures/outdoor_t1\",\"type\":\"floatValue\",\"writeable\":0,\"recordable\":1,\"value\":9.3,\"unitOfMeasure\":\"C\",\"state\":[{\"open\":-3276.8},{\"short\":3276.7}]}"
+            // Original datapoint id for this response: /system/sensors/temperatures/outdoor_t1
             // We have to use an unique datapoint per test to enable concurrent test runs of different tests.
             var dataPointToRead = $"/{nameof(ReadDatapointValueAsFloat)}/{nameof(ReturnsCorrectResult)}";
             var encryptedDeviceResponse = "\r\nWsjYjFOV4L8oyAjxi8GGfZ2uTf3PPKKYfdoQkr3zd/frRDQ5fFnaIbZXQR9gUAkawNpUOjlM0Ela+3z79+gSpzkB5eIqef669LR3/JtUv59U+6Amc6CGtr6yy9iGEPetwpW8F15HpHOhxTr9IrehMPVYAs7TKCq0ce6Xe4wiEs300GOj/GTV5k1UKo+Y2p27dmbHAzBirj19+k2pgw60/W0SZ6Lvip3HhJMfrDGxivw=";
@@ -223,7 +225,7 @@ public class BuderusKm200ReaderTests
         {
             // The decrypted response of the below written encrypted response is:
             // "{\"id\":\"/system/healthStatus\",\"type\":\"stringValue\",\"writeable\":0,\"recordable\":0,\"value\":\"ok\",\"allowedValues\":[\"error\",\"maintenance\",\"ok\"]}"
-            // Original dataoint id for this response: /system/healthStatus
+            // Original datapoint id for this response: /system/healthStatus
             // We have to use an unique datapoint per test to enable concurrent test runs of different tests.
             var dataPointToRead = $"/{nameof(ReadDatapointValueAsFloat)}/{nameof(ThrowsIfDatatypeDoesNotMatch)}";
             var encryptedDeviceResponse = "\r\n5lFtxRGRpgiqvS3HZTzpc6/aaOVxpus3KTyOieiyRedD1ooIhZlUS/HnXZhVlgUKOc8hSDZJ2L+r9d3jFMWFuBFBHawwv8GgjtdGVFMwOVI9k+/3tEDNrTTFvmQXs1QFdaj6Y6Dar9bTg7oACiFE0QkljkshrljWy/lldZyvJ6GIlfGU2nFstBIVP8DcgOVy";
@@ -236,6 +238,47 @@ public class BuderusKm200ReaderTests
                 .WithMessage("*type*not*expected*")
                 .WithMessage("*string*")
                 .WithMessage("*float*");
+        }
+    }
+
+    public class ReadDatapointValueAsString : Read
+    {
+        [Fact]
+        public void ReturnsCorrectResult()
+        {
+            // The decrypted response of the below written encrypted response is:
+            // "{\"id\":\"/system/healthStatus\",\"type\":\"stringValue\",\"writeable\":0,\"recordable\":0,\"value\":\"ok\",\"allowedValues\":[\"error\",\"maintenance\",\"ok\"]}"
+            // Original dataoint id for this response: /system/healthStatus
+            // We have to use an unique datapoint per test to enable concurrent test runs of different tests.
+            var dataPointToRead = $"/{nameof(ReadDatapointValueAsString)}/{nameof(ReturnsCorrectResult)}";
+            var encryptedDeviceResponse = "\r\n5lFtxRGRpgiqvS3HZTzpc6/aaOVxpus3KTyOieiyRedD1ooIhZlUS/HnXZhVlgUKOc8hSDZJ2L+r9d3jFMWFuBFBHawwv8GgjtdGVFMwOVI9k+/3tEDNrTTFvmQXs1QFdaj6Y6Dar9bTg7oACiFE0QkljkshrljWy/lldZyvJ6GIlfGU2nFstBIVP8DcgOVy";
+            var expectedDatapointValue = "ok";
+            var url = GetUrlToMock(dataPointToRead);
+            MockRequest(url, encryptedDeviceResponse);
+
+            var result = Reader.ReadDatapointValueAsString(dataPointToRead);
+
+            result.Should().Be(expectedDatapointValue);
+        }
+
+        [Fact]
+        public void ThrowsIfDatatypeDoesNotMatch()
+        {
+            // The decrypted response of the below written encrypted response is:
+            // "{\"id\":\"/system/sensors/temperatures/outdoor_t1\",\"type\":\"floatValue\",\"writeable\":0,\"recordable\":1,\"value\":9.3,\"unitOfMeasure\":\"C\",\"state\":[{\"open\":-3276.8},{\"short\":3276.7}]}"
+            // Original datapoint id for this response: /system/sensors/temperatures/outdoor_t1
+            // We have to use an unique datapoint per test to enable concurrent test runs of different tests.
+            var dataPointToRead = $"/{nameof(ReadDatapointValueAsString)}/{nameof(ThrowsIfDatatypeDoesNotMatch)}";
+            var encryptedDeviceResponse = "\r\nWsjYjFOV4L8oyAjxi8GGfZ2uTf3PPKKYfdoQkr3zd/frRDQ5fFnaIbZXQR9gUAkawNpUOjlM0Ela+3z79+gSpzkB5eIqef669LR3/JtUv59U+6Amc6CGtr6yy9iGEPetwpW8F15HpHOhxTr9IrehMPVYAs7TKCq0ce6Xe4wiEs300GOj/GTV5k1UKo+Y2p27dmbHAzBirj19+k2pgw60/W0SZ6Lvip3HhJMfrDGxivw=";
+            var url = GetUrlToMock(dataPointToRead);
+            MockRequest(url, encryptedDeviceResponse);
+
+            Action act = () => Reader.ReadDatapointValueAsString(dataPointToRead);
+
+            act.Should().Throw<InvalidOperationException>()
+                .WithMessage("*type*not*expected*")
+                .WithMessage("*float*")
+                .WithMessage("*string*");
         }
     }
 }

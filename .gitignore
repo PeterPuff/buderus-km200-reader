@@ -351,4 +351,4 @@ MigrationBackup/
 
 # User defined ignores
 # Prevent gateway and private password from being checked in
-samples/ReadOutdoorTemperature/Properties/launchSettings.json
+samples/ReadDatapoints/Properties/launchSettings.json
