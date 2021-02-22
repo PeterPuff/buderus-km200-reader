@@ -11,6 +11,20 @@ The base functionality was translated from demel42's IP-Symcon module https://gi
 
 To translate decryption algorithm, this source was used: https://stackoverflow.com/questions/19719294/decrypt-string-in-c-sharp-that-was-encrypted-with-php-openssl-encrypt.
 
+## Tested hardware
+
+This library was tested with a Buderus heat pump heating system (indoor unit IDU-8), equipped with following modules:
+- Buderus Logamatic HMC300
+  - Software version NF13.06
+- "Internet module"
+    - Internal gateway module, included in tower, no specific name
+    - Details shown in menu of main unit: 
+        - Internet module: *KMx*
+        - Software version *04.07*
+    - Details read from the interface via it's datapoints
+        - Hardware version: *iCom_Low_NSC_v1* (`/gateway/versionHardware`)
+        - Software version: *04.07.05* (`/gateway/versionSoftware`)
+
 ## Sample response from device
 
 Query URL: http://device-address-and-port/system/sensors/temperatures/outdoor_t1
