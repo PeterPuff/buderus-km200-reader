@@ -184,7 +184,9 @@ public class BuderusKm200ReaderTests
         [Fact]
         public void ReturnsCorrectResult()
         {
-            var dataPointToRead = "/system/sensors/temperatures/outdoor_t1";
+            // original dataoint id for this response: /system/sensors/temperatures/outdoor_t1
+            // We have to use an unique datapoint per test to enable concurrent test runs of different tests.
+            var dataPointToRead = $"/{nameof(ReadDatapointData)}/{nameof(ReturnsCorrectResult)}";
             var expectedUserAgent = "TeleHeater/2.2.3";
             var encryptedDeviceResponse = "\r\nWsjYjFOV4L8oyAjxi8GGfZ2uTf3PPKKYfdoQkr3zd/frRDQ5fFnaIbZXQR9gUAkawNpUOjlM0Ela+3z79+gSpzkB5eIqef669LR3/JtUv59U+6Amc6CGtr6yy9iGEPetwpW8F15HpHOhxTr9IrehMPVYAs7TKCq0ce6Xe4wiEs300GOj/GTV5k1UKo+Y2p27dmbHAzBirj19+k2pgw60/W0SZ6Lvip3HhJMfrDGxivw=";
             var expectedDatapointData = "{\"id\":\"/system/sensors/temperatures/outdoor_t1\",\"type\":\"floatValue\",\"writeable\":0,\"recordable\":1,\"value\":9.3,\"unitOfMeasure\":\"C\",\"state\":[{\"open\":-3276.8},{\"short\":3276.7}]}";
