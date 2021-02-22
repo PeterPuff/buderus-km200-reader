@@ -205,6 +205,8 @@ public class BuderusKm200ReaderTests
         [Fact]
         public void ReturnsCorrectResult()
         {
+            // The decrypted response of the below written encrypted response is:
+            // "{\"id\":\"/system/sensors/temperatures/outdoor_t1\",\"type\":\"floatValue\",\"writeable\":0,\"recordable\":1,\"value\":9.3,\"unitOfMeasure\":\"C\",\"state\":[{\"open\":-3276.8},{\"short\":3276.7}]}"
             // Original datapoint id for this response: /system/sensors/temperatures/outdoor_t1
             // We have to use an unique datapoint per test to enable concurrent test runs of different tests.
             var dataPointToRead = $"/{nameof(ReadDatapointValueAsFloat)}/{nameof(ReturnsCorrectResult)}";
