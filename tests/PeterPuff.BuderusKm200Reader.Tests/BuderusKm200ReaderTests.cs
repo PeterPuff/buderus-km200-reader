@@ -199,4 +199,43 @@ public class BuderusKm200ReaderTests
             result.Should().Be(expectedDatapointData);
         }
     }
+
+    public class ReadDatapointValueAsFloat : Read
+    {
+        [Fact]
+        public void ReturnsCorrectResult()
+        {
+            // Original dataoint id for this response: /system/sensors/temperatures/outdoor_t1
+            // We have to use an unique datapoint per test to enable concurrent test runs of different tests.
+            var dataPointToRead = $"/{nameof(ReadDatapointValueAsFloat)}/{nameof(ReturnsCorrectResult)}";
+            var encryptedDeviceResponse = "\r\nWsjYjFOV4L8oyAjxi8GGfZ2uTf3PPKKYfdoQkr3zd/frRDQ5fFnaIbZXQR9gUAkawNpUOjlM0Ela+3z79+gSpzkB5eIqef669LR3/JtUv59U+6Amc6CGtr6yy9iGEPetwpW8F15HpHOhxTr9IrehMPVYAs7TKCq0ce6Xe4wiEs300GOj/GTV5k1UKo+Y2p27dmbHAzBirj19+k2pgw60/W0SZ6Lvip3HhJMfrDGxivw=";
+            var expectedDatapointValue = 9.3f;
+            var url = GetUrlToMock(dataPointToRead);
+            MockRequest(url, encryptedDeviceResponse);
+
+            var result = Reader.ReadDatapointValueAsFloat(dataPointToRead);
+
+            result.Should().Be(expectedDatapointValue);
+        }
+
+        [Fact]
+        public void ThrowsIfDatatypeDoesNotMatch()
+        {
+            // The decrypted response of the below written encrypted response is:
+            // "{\"id\":\"/system/healthStatus\",\"type\":\"stringValue\",\"writeable\":0,\"recordable\":0,\"value\":\"ok\",\"allowedValues\":[\"error\",\"maintenance\",\"ok\"]}"
+            // Original dataoint id for this response: /system/healthStatus
+            // We have to use an unique datapoint per test to enable concurrent test runs of different tests.
+            var dataPointToRead = $"/{nameof(ReadDatapointValueAsFloat)}/{nameof(ThrowsIfDatatypeDoesNotMatch)}";
+            var encryptedDeviceResponse = "\r\n5lFtxRGRpgiqvS3HZTzpc6/aaOVxpus3KTyOieiyRedD1ooIhZlUS/HnXZhVlgUKOc8hSDZJ2L+r9d3jFMWFuBFBHawwv8GgjtdGVFMwOVI9k+/3tEDNrTTFvmQXs1QFdaj6Y6Dar9bTg7oACiFE0QkljkshrljWy/lldZyvJ6GIlfGU2nFstBIVP8DcgOVy";
+            var url = GetUrlToMock(dataPointToRead);
+            MockRequest(url, encryptedDeviceResponse);
+
+            Action act = () => Reader.ReadDatapointValueAsFloat(dataPointToRead);
+
+            act.Should().Throw<InvalidOperationException>()
+                .WithMessage("*type*not*expected*")
+                .WithMessage("*string*")
+                .WithMessage("*float*");
+        }
+    }
 }
