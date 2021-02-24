@@ -39,8 +39,11 @@
         -->
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/PeterPuff/buderus-km200-reader</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/PeterPuff/buderus-km200-reader.git</RepositoryUrl>
-        <RepositoryType>git</RepositoryType> 
         <Authors>$(Company)</Authors>
+        <!-- Microsoft.SourceLink.GitHub properties -->
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 </Project>
