@@ -1,0 +1,48 @@
+name: Build + Test
+
+on: [push]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./artifacts/testresults
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        fail_ci_if_error: true
+        directory: ./artifacts/testresults
+
+  deploy-prerelease-package:
+    needs: build-and-test
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps: 
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Get commit count
+      id: get_commit_count
+      uses: lucasfe/version_code_generator@v1.0.0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - uses: FranzDiebold/github-env-vars-action@v2
+    - name: Create prerelease package(s)
+      run: dotnet pack --configuration Release --output artifacts/packages --version-suffix pre-${{ steps.get_commit_count.outputs.code }}-$CI_SHA_SHORT -p:CreatePrerelease=1
+    - name: Deploy prerelease package(s) to GitHub Packages
+      env:
+        GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+        GITHUB_API_KEY: ${{ github.token }}
+      run: dotnet nuget push artifacts/packages/*.nupkg --source https://nuget.pkg.github.com/${{ env.GITHUB_REPOSITORY_OWNER }}/index.json --api-key ${{ env.GITHUB_API_KEY }}
