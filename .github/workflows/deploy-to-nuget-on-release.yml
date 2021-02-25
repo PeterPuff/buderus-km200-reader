@@ -1,0 +1,33 @@
+name: Deploy release package to NuGet.org
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Test
+      run: dotnet test --configuration Release
+
+  deploy-release-package:
+    needs: test
+    runs-on: ubuntu-latest
+    steps: 
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Create release package(s)
+      run: dotnet pack --configuration Release --output artifacts/packages
+    - name: Deploy release package(s) to NuGet.org
+      env: 
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      run: dotnet nuget push artifacts/packages/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ env.NUGET_API_KEY }}
