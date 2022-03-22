@@ -71,7 +71,7 @@ namespace PeterPuff.BuderusKm200Reader
             return buffer;
         }
 
-        private string Decrypt(string encrypted)
+        public string Decrypt(string encrypted)
         {
             var decrypted = DecryptStringFromOpenSslAes(encrypted, _key);
             decrypted = decrypted.TrimEnd('\0');
